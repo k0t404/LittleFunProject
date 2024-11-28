@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ga7xig3v3u3"]
+
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_60nj2"]
+
+[sub_resource type="Environment" id="Environment_okxo7"]
+background_mode = 2
+background_energy_multiplier = 4.4
+tonemap_mode = 3
+tonemap_exposure = 6.01
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nljce"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_adpyr"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_okxo7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90906, -8.75723)
+shape = SubResource("SphereShape3D_nljce")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="WorldEnvironment/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.118659, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8198, -4.42524)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0844049, 0, -11.3353)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(23.2131, 1, 18.9423)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.00539, 2.86153, -4.91147)
+script = ExtResource("1_60nj2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_adpyr")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_adpyr")
