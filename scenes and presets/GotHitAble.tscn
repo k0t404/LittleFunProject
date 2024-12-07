@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://wopuv1j2f2y2"]
+
+[ext_resource type="Script" path="res://scriptes/got_hit_able.gd" id="1_f84x6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3w10g"]
+
+[node name="GotHitAble" type="Area3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_f84x6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3w10g")

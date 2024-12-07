@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bu10c7o2aoeh6"]
+
+[ext_resource type="Script" path="res://scriptes/door.gd" id="1_rntrt"]
+[ext_resource type="PackedScene" uid="uid://wopuv1j2f2y2" path="res://scenes and presets/GotHitAble.tscn" id="2_k7x7f"]
+[ext_resource type="PackedScene" uid="uid://b60blfkwdvhlg" path="res://scenes and presets/Interactable.tscn" id="2_qra7m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vy6k1"]
+size = Vector3(1.76703, 2.95654, 0.479614)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_alfen"]
+size = Vector3(1.76703, 2.95654, 0.479614)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c7der"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_032fc"]
+
+[node name="Door" type="Node3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_rntrt")
+
+[node name="GotHitAble" parent="." instance=ExtResource("2_k7x7f")]
+
+[node name="CollisionShape3D" parent="GotHitAble" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.843469, 1.51685, 0.0115736)
+shape = SubResource("BoxShape3D_vy6k1")
+
+[node name="Interactable" parent="." instance=ExtResource("2_qra7m")]
+transform = Transform3D(0.999778, 0, -0.0210646, 0, 1, 0, 0.0210646, 0, 0.999778, 1, 0, 0)
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+transform = Transform3D(1.00002, 0, 3.72529e-08, 0, 1, 0, -3.72529e-08, 0, 1.00002, -0.105936, 1.51685, 0.0115735)
+shape = SubResource("BoxShape3D_alfen")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.72999, 0, 0, 0, 2.93141, 0, 0, 0, 0.535286, 0.904001, 1.498, -4.19624e-09)
+mesh = SubResource("BoxMesh_c7der")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1.743, 0, -3.72893e-11, 0, 3.00008, 0, 4.9738e-14, 0, 0.492995, 0.901955, 1.5, 0.0368421)
+shape = SubResource("BoxShape3D_032fc")
+
+[connection signal="hitted" from="GotHitAble" to="." method="_on_got_hit_able_hitted"]
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+
+[editable path="GotHitAble"]
+[editable path="Interactable"]

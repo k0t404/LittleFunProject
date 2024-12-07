@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://ddyaph65m0b8v"]
+
+[ext_resource type="Script" path="res://scriptes/location_change_button.gd" id="1_2njqd"]
+[ext_resource type="PackedScene" uid="uid://b60blfkwdvhlg" path="res://scenes and presets/Interactable.tscn" id="2_i68mh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wss50"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_y6ali"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ei0i"]
+
+[node name="LocationChange" type="Node3D"]
+script = ExtResource("1_2njqd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_wss50")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_y6ali")
+
+[node name="Interactable" parent="." instance=ExtResource("2_i68mh")]
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+shape = SubResource("BoxShape3D_0ei0i")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+
+[editable path="Interactable"]

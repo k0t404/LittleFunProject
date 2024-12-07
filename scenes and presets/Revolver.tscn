@@ -1,0 +1,126 @@
+[gd_scene load_steps=18 format=3 uid="uid://dwagc6ukqayn5"]
+
+[ext_resource type="Script" path="res://scriptes/revolver.gd" id="1_amxn5"]
+[ext_resource type="ArrayMesh" uid="uid://btt08llaj6eq4" path="res://weapons/revolver/revolverModel.obj" id="3_usc5w"]
+[ext_resource type="Texture2D" uid="uid://b6cpn5kyf7a8p" path="res://weapons/revolver/HammerlessRevolverText.png" id="4_8rwpi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3j0s"]
+albedo_texture = ExtResource("4_8rwpi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qxu"]
+albedo_texture = ExtResource("4_8rwpi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdf71"]
+albedo_texture = ExtResource("4_8rwpi")
+
+[sub_resource type="Animation" id="Animation_qu3xp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qoxv0"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.933333, 1.8, 2.7, 3.43333, 3.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.245909, 0), Vector3(0, 0.268227, 0), Vector3(0.0904672, -0.218734, -0.00175405), Vector3(-0.285143, 0.12716, -0.0669103), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8fxjl"]
+resource_name = "shooting"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0666667, 0.266667, 1.56667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.888342, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aa55g"]
+_data = {
+"RESET": SubResource("Animation_qu3xp"),
+"idle": SubResource("Animation_qoxv0"),
+"shooting": SubResource("Animation_8fxjl")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_658n8"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1d1tj"]
+animation = &"shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hx5qg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sqkb8"]
+advance_mode = 2
+advance_condition = &"shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1i60b"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_l2myx"]
+states/Start/position = Vector2(177, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_658n8")
+states/idle/position = Vector2(343, 100)
+states/shooting/node = SubResource("AnimationNodeAnimation_1d1tj")
+states/shooting/position = Vector2(533, 87)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_hx5qg"), "idle", "shooting", SubResource("AnimationNodeStateMachineTransition_sqkb8"), "shooting", "idle", SubResource("AnimationNodeStateMachineTransition_1i60b")]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q0ha0"]
+
+[node name="Weapon" type="CharacterBody3D"]
+script = ExtResource("1_amxn5")
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_usc5w")
+surface_material_override/0 = SubResource("StandardMaterial3D_n3j0s")
+surface_material_override/1 = SubResource("StandardMaterial3D_11qxu")
+surface_material_override/2 = SubResource("StandardMaterial3D_jdf71")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponMesh"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_aa55g")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="WeaponMesh"]
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_l2myx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/shoot = true
+
+[node name="WeaponShadow" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.297665, 0.0262732, 0.375247, 0.00368593, -0.271934, 1.34734, 0.0513934, 0.171675, 2.07676, 0, 0, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_q0ha0")

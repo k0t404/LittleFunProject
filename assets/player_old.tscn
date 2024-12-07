@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0xmiv84rn1nq"]
+
+[ext_resource type="Script" path="res://scriptes/player.gd" id="1_6yfcf"]
+[ext_resource type="PackedScene" uid="uid://b30ixkuxt6udl" path="res://male_char/scene.gltf" id="2_c8jbk"]
+[ext_resource type="Script" path="res://scriptes/cameraController_old.gd" id="3_2kukn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_adpyr"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.58369, 0.135534, 0)
+visible = false
+script = ExtResource("1_6yfcf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_adpyr")
+
+[node name="Sketchfab_Scene" parent="CollisionShape3D" instance=ExtResource("2_c8jbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.79135, 0.245179)
+script = ExtResource("3_2kukn")
+
+[node name="Node3D" type="Node3D" parent="."]

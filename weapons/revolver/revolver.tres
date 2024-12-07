@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Weapons" load_steps=2 format=3 uid="uid://cnwp14f2q0m4q"]
+
+[ext_resource type="Script" path="res://scriptes/weapons.gd" id="1_of1nq"]
+
+[resource]
+script = ExtResource("1_of1nq")
+name = &"revolver"
+position = Vector3(0.34, -0.3, -0.58)
+rotation = Vector3(0, 90, 0)
+shadow = false
+damage = 0.0

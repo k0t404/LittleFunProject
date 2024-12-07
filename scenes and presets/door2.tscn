@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq184ss4cuwu2"]
+
+[ext_resource type="Script" path="res://scriptes/rigid_body_3d.gd" id="1_k4fh4"]
+[ext_resource type="PackedScene" uid="uid://b60blfkwdvhlg" path="res://scenes and presets/Interactable.tscn" id="2_qdbm7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_um72g"]
+size = Vector3(2.9906, 4.23901, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6x1yg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nkqa6"]
+size = Vector3(2.9917, 4.20911, 1)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_k4fh4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.487, 2.11902, 0)
+shape = SubResource("BoxShape3D_um72g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.0483, 0, 0, 0, 4.31611, 0, 0, 0, 1, 1.64077, 2.19115, 0)
+mesh = SubResource("BoxMesh_6x1yg")
+
+[node name="Interactable" parent="." instance=ExtResource("2_qdbm7")]
+transform = Transform3D(0.999778, 0, -0.0210646, 0, 1, 0, 0.0210646, 0, 0.999778, 1, 0, 0)
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+transform = Transform3D(1.00003, 0, 5.21541e-08, 0, 1, 0, -5.21541e-08, 0, 1.00003, 0.483647, 2.15277, -2.6077e-08)
+shape = SubResource("BoxShape3D_nkqa6")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+
+[editable path="Interactable"]

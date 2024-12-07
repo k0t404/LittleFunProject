@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsrxjh8ck2sjo"]
+
+[ext_resource type="PackedScene" uid="uid://cwnv0p21ngi7h" path="res://scens and presets 2d/Player2d.tscn" id="2_3cs01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5752"]
+size = Vector2(441, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fko64"]
+
+[node name="Main3" type="Node2D"]
+
+[node name="Player2d" parent="." instance=ExtResource("2_3cs01")]
+position = Vector2(-3, -44)
+
+[node name="Camera2D" type="Camera2D" parent="Player2d"]
+position = Vector2(3, 44)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.5, 20)
+shape = SubResource("RectangleShape2D_i5752")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+position = Vector2(1, 20)
+scale = Vector2(439.318, -20.0009)
+mesh = SubResource("BoxMesh_fko64")

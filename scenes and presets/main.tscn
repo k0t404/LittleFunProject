@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5ga7xig3v3u3"]
+
+[ext_resource type="PackedScene" uid="uid://b3i8lxqqab3gv" path="res://blood-pool-location/source/BloodPool_low.glb" id="1_jbwti"]
+[ext_resource type="PackedScene" uid="uid://bu10c7o2aoeh6" path="res://scenes and presets/door.tscn" id="3_72t0e"]
+[ext_resource type="PackedScene" uid="uid://vdiw6vrckal3" path="res://scenes and presets/player.tscn" id="3_jquow"]
+[ext_resource type="PackedScene" uid="uid://ddyaph65m0b8v" path="res://scenes and presets/LocationChangeButton.tscn" id="4_2m27e"]
+[ext_resource type="PackedScene" uid="uid://v51evwf0carr" path="res://scenes and presets/ChangeRoom.tscn" id="5_am1ga"]
+[ext_resource type="PackedScene" uid="uid://bq184ss4cuwu2" path="res://scenes and presets/door2.tscn" id="6_3dhnr"]
+
+[sub_resource type="Environment" id="Environment_okxo7"]
+background_mode = 1
+background_energy_multiplier = 4.4
+ambient_light_color = Color(0, 0, 0.729412, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 16.0
+tonemap_white = 5.36
+volumetric_fog_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oqi7n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f8joc"]
+size = Vector3(109.044, 1, 100.513)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1na"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_okxo7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.197058, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_oqi7n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0863, 0, 0.717972)
+shape = SubResource("BoxShape3D_f8joc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.822477, -0.000975866, -0.568797, -0.00245376, 0.999995, 0.00183247, 0.568793, 0.00290286, -0.822476, 0.714266, 0.838147, 0)
+
+[node name="BloodPool_low" parent="WorldEnvironment" instance=ExtResource("1_jbwti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.95876, 0, 2.48426)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0844049, 0, -11.3353)
+visible = false
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0719, 18.0475, 67.3018)
+radius = 12.8346
+height = 36.0178
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3648, 0, 14.9418)
+size = Vector3(152.876, 1, 166.343)
+material = SubResource("ShaderMaterial_pt1na")
+
+[node name="player" parent="." instance=ExtResource("3_jquow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02551, 1.86483, -1.39507)
+
+[node name="LocationChange" parent="." instance=ExtResource("4_2m27e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.55259, 0.973412, -10.5212)
+
+[node name="ChangeRoom" parent="." instance=ExtResource("5_am1ga")]
+transform = Transform3D(1.00046, 0, 0, 0, 1.00046, 0, 0, 0, 1.00046, 8.66159, 0.5, 4.54471)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("6_3dhnr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.28095, -0.459808, 14.3751)
+
+[node name="Door" parent="." instance=ExtResource("3_72t0e")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.61875, 0.5, 17.3008)

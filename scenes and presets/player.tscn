@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://vdiw6vrckal3"]
+
+[ext_resource type="Script" path="res://scriptes/PlayerController.gd" id="1_0eb4b"]
+[ext_resource type="PackedScene" uid="uid://bo83b78yfi8dq" path="res://scenes and presets/player_interactor.tscn" id="2_w4wyh"]
+[ext_resource type="PackedScene" uid="uid://c3mpdk6t4iyfo" path="res://scenes and presets/player_move_scene.tscn" id="3_7pnve"]
+[ext_resource type="PackedScene" uid="uid://dwagc6ukqayn5" path="res://scenes and presets/Revolver.tscn" id="3_lffl4"]
+[ext_resource type="Script" path="res://scriptes/physics_component.gd" id="4_7poha"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oo0wq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kddoh"]
+
+[sub_resource type="GDScript" id="GDScript_ojkxs"]
+script/source = "extends Node3D
+"
+
+[sub_resource type="GDScript" id="GDScript_dpb50"]
+script/source = "extends Camera3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta) -> void:
+	delta = 1
+	pass
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ygcly"]
+size = Vector3(1, 0.880127, 3.6684)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7aijd"]
+size = Vector3(1.20984, 2.03711, 1.20514)
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_0eb4b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_oo0wq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_kddoh")
+
+[node name="Head" type="Node3D" parent="."]
+script = SubResource("GDScript_ojkxs")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377115, -0.728487)
+script = SubResource("GDScript_dpb50")
+
+[node name="PlayerInteractor" parent="Head/Camera3D" node_paths=PackedStringArray("player") instance=ExtResource("2_w4wyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.377115, 0.728487)
+player = NodePath("../../..")
+
+[node name="CollisionShape3D" parent="Head/Camera3D/PlayerInteractor" index="0"]
+transform = Transform3D(2.09036, 0, 0, 0, 2.719, 0, 0, 0, 1, 0, 0.115686, -1.2273)
+shape = SubResource("BoxShape3D_ygcly")
+
+[node name="Weapon" parent="Head/Camera3D" instance=ExtResource("3_lffl4")]
+transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, 0.805, -0.407, -1.037)
+
+[node name="PlayerMoveScene" parent="Head" node_paths=PackedStringArray("player") instance=ExtResource("3_7pnve")]
+player = NodePath("../..")
+
+[node name="CollisionShape3D" parent="Head/PlayerMoveScene" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0287476, 0.0527344, -0.0340881)
+shape = SubResource("BoxShape3D_7aijd")
+
+[node name="PhysicsComponent" type="Node" parent="." node_paths=PackedStringArray("controller")]
+script = ExtResource("4_7poha")
+controller = NodePath("..")
+
+[editable path="Head/Camera3D/PlayerInteractor"]
+[editable path="Head/PlayerMoveScene"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyd1ix8pu6cu2"]
+
+[ext_resource type="Script" path="res://scriptes/init_weapon.gd" id="1_kxm4r"]
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_kxm4r")
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.302092, 0, 0, 0, 0.322662, 0, 0, 0, 2.50381, 0, 0, 0)
+
+[node name="WeaponShadow" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.302092, 0, 0, 0, 0.322662, 0, 0, 0, 2.50381, 0, 0, 0)
+visible = false

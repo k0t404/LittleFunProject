@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5w3hr7g8tvc5"]
+
+[ext_resource type="PackedScene" uid="uid://cgivs7yja6unj" path="res://scenes and presets/hit_point.tscn" id="1_eghx7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_orj7u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j83m5"]
+
+[node name="BulletHole" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_orj7u")
+
+[node name="HitPoint" parent="." instance=ExtResource("1_eghx7")]
+
+[node name="CollisionShape3D" parent="HitPoint" index="0"]
+shape = SubResource("SphereShape3D_j83m5")
+
+[editable path="HitPoint"]

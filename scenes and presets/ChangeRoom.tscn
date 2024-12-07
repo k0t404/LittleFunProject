@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://v51evwf0carr"]
+
+[ext_resource type="Script" path="res://scriptes/change_room.gd" id="1_xt7jd"]
+[ext_resource type="PackedScene" uid="uid://co2qam4sai05f" path="res://scenes and presets/MoverToSceneAble.tscn" id="2_2b6a0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jq484"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u64w1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p37ad"]
+size = Vector3(11.8286, 1, 7.48206)
+
+[sub_resource type="Environment" id="Environment_51vdi"]
+
+[node name="ChangeRoom" type="Node3D"]
+script = ExtResource("1_xt7jd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(11.9977, 0, 0, 0, 1, 0, 0, 0, 7.61459, 0, 0, 0)
+shape = SubResource("BoxShape3D_jq484")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(11.8091, 0, 0, 0, 1, 0, 0, 0, 7.56345, 0, 0, 0)
+mesh = SubResource("BoxMesh_u64w1")
+
+[node name="MoverToSceneAble" parent="." instance=ExtResource("2_2b6a0")]
+
+[node name="CollisionShape3D" parent="MoverToSceneAble" index="0"]
+transform = Transform3D(0.995282, 0, 0, 0, 4.53897, 0, 0, 0, 0.995282, -0.0559082, 2.58497, 0.0383911)
+shape = SubResource("BoxShape3D_p37ad")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_51vdi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+
+[connection signal="touched" from="MoverToSceneAble" to="." method="_on_mover_to_scene_able_touched"]
+
+[editable path="MoverToSceneAble"]

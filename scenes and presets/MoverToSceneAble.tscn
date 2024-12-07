@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://co2qam4sai05f"]
+
+[ext_resource type="Script" path="res://scriptes/mover_to_scene_able.gd" id="1_cb4ky"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xxcxp"]
+
+[node name="MoverToSceneAble" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_cb4ky")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xxcxp")

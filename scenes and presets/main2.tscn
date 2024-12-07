@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://kynkxwmllwts"]
+
+[ext_resource type="PackedScene" uid="uid://vdiw6vrckal3" path="res://scenes and presets/player.tscn" id="1_kx7r3"]
+[ext_resource type="PackedScene" uid="uid://do4dyuvg6g2w3" path="res://scenes and presets/rigid_body_3d.tscn" id="2_eeoea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6yp14"]
+size = Vector3(30.7457, 1, 4.84155)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fk5ip"]
+
+[node name="Main2" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.998, 0, 0, 0, 0.998, 0, 0, 0, 4.82305, 0.0159287, 0, 0.0724168)
+shape = SubResource("BoxShape3D_6yp14")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(30.7479, 0, 0, 0, 1, 0, 0, 0, 23.5303, 0, 0, 0)
+mesh = SubResource("BoxMesh_fk5ip")
+
+[node name="player" parent="." instance=ExtResource("1_kx7r3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79747, 0)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_eeoea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.09014, 1.38674, 6.85673)

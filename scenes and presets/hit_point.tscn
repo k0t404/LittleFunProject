@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgivs7yja6unj"]
+
+[ext_resource type="PackedScene" uid="uid://hhns5ar02idn" path="res://scenes and presets/GotHitOr.tscn" id="1_cy04r"]
+[ext_resource type="Script" path="res://scriptes/hit_point.gd" id="2_i1v0g"]
+
+[node name="HitPoint" instance=ExtResource("1_cy04r")]
+script = ExtResource("2_i1v0g")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
